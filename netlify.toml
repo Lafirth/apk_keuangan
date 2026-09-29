@@ -5,7 +5,7 @@
   command = "npm install --omit=dev --no-audit --no-fund"
 
 [build.environment]
-  NODE_VERSION = "24"
+  NODE_VERSION = "22"
 
 [functions]
   directory = "netlify/functions"
