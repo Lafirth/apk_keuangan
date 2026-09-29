@@ -1,0 +1,125 @@
+<section class="grid g-3 fade-up">
+  <div class="stat st-red">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Kategori Pengeluaran</div>
+        <div class="stat-val sm" id="katJmlKeluar">— kategori</div>
+      </div>
+      <div class="stat-ico">💸</div>
+    </div>
+    <div class="stat-foot">Tersedia untuk mengelompokkan pengeluaran harian</div>
+  </div>
+  <div class="stat st-green">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Kategori Pemasukan</div>
+        <div class="stat-val sm" id="katJmlMasuk">— kategori</div>
+      </div>
+      <div class="stat-ico">📈</div>
+    </div>
+    <div class="stat-foot">Untuk gaji, bonus, usaha, dan pemasukan lain</div>
+  </div>
+  <div class="stat st-blue">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Total Kategori</div>
+        <div class="stat-val sm" id="katJmlTotal">— kategori</div>
+      </div>
+      <div class="stat-ico">🏷️</div>
+    </div>
+    <div class="stat-foot">Jumlah seluruh kategori yang aktif</div>
+  </div>
+</section>
+
+<!-- ================= PENGELUARAN ================= -->
+<section class="card fade-up d1">
+  <div class="card-head">
+    <div>
+      <h2>Kategori Pengeluaran</h2>
+      <p>Untuk mengelompokkan setiap pengeluaran harianmu</p>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary btn-sm" data-new-kategori>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      Tambah Kategori
+    </button>
+  </div>
+  <div class="card-body" id="katGridKeluar"></div>
+</section>
+
+<!-- ================= PEMASUKAN ================= -->
+<section class="card fade-up d2">
+  <div class="card-head">
+    <div>
+      <h2>Kategori Pemasukan</h2>
+      <p>Untuk gaji dan pemasukan lainnya</p>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn btn-success btn-sm" data-new-kategori>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      Tambah Kategori
+    </button>
+  </div>
+  <div class="card-body" id="katGridMasuk"></div>
+</section>
+
+<!-- ================= MODAL KATEGORI ================= -->
+<div class="modal" id="modalKategori" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="katJudulModal">Tambah Kategori</h3>
+      <button class="icon-btn" data-close aria-label="Tutup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <form id="formKategori" class="modal-body" autocomplete="off">
+      <input type="hidden" name="id" id="katId" value="">
+
+      <div class="form-grid">
+        <label class="field span-2">
+          <span>Nama Kategori</span>
+          <input type="text" class="input" name="nama" id="katNama"
+                 maxlength="50" placeholder="Contoh: Transport, Baju, Langganan" required>
+        </label>
+
+        <label class="field span-2">
+          <span>Jenis</span>
+          <select class="select" name="jenis" id="katJenis">
+            <option value="keluar">Pengeluaran</option>
+            <option value="masuk">Pemasukan</option>
+          </select>
+        </label>
+
+        <div class="field span-2">
+          <span>Pilih Ikon</span>
+          <div class="emoji-pick" id="emojiPick"></div>
+          <input type="hidden" name="ikon" id="katIkon" value="🏷️">
+        </div>
+
+        <div class="field span-2">
+          <span>Pilih Warna</span>
+          <div class="color-pick" id="warnaPick"></div>
+          <input type="hidden" name="warna" id="katWarna" value="#6366f1">
+        </div>
+      </div>
+
+      <div class="modal-foot">
+        <div></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" data-close>Batal</button>
+          <button type="submit" class="btn btn-primary" id="katSubmit">
+            <span class="btn-text">Simpan Kategori</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

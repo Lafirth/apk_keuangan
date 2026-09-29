@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rekap</title>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<div class="no-print" style="position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;
+     padding:14px 24px;background:rgba(12,17,32,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)">
+  <div>
+    <b>Pratinjau Cetak</b>
+    <div class="tiny mute2" id="cetakPeriode">— &middot; atur ukuran kertas A4</div>
+  </div>
+  <div style="flex:1"></div>
+  <button class="btn btn-ghost btn-sm" onclick="history.back()">Kembali</button>
+  <button class="btn btn-ghost btn-sm" id="cetakExport">Export CSV</button>
+  <button class="btn btn-primary btn-sm" onclick="window.print()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+      <path d="M6 14h12v8H6z"/>
+    </svg>
+    Cetak / Simpan PDF
+  </button>
+</div>
+
+<div style="max-width:900px;margin:0 auto;padding:26px 24px 50px" id="cetakBadan"></div>
+
+<script type="module" src="/assets/js/print.js"></script>
+</body>
+</html>

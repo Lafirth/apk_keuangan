@@ -1,0 +1,164 @@
+<!-- ================= PILIH BULAN ================= -->
+<div class="filters fade-up">
+  <label class="field" style="min-width:200px">
+    <span>Periode</span>
+    <select class="select" id="dashPeriode"></select>
+  </label>
+  <div style="flex:1"></div>
+  <a class="btn btn-ghost" href="/cetak" data-periode-link>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+      <path d="M6 14h12v8H6z"/>
+    </svg>
+    <span class="desk-only">Cetak Rekap</span>
+  </a>
+  <button class="btn btn-ghost" id="btnSaldoAwal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 10h6M9 14h6"/>
+    </svg>
+    <span class="desk-only">Atur Saldo Awal</span>
+  </button>
+</div>
+
+<!-- ================= KARTU STATISTIK ================= -->
+<section class="grid g-4">
+  <div class="stat st-blue fade-up d1">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Sisa Bulan Ini</div>
+        <div class="stat-val" id="kSisa">—</div>
+      </div>
+      <div class="stat-ico">💰</div>
+    </div>
+    <div class="stat-foot">
+      <span id="kPersenTxt">—% dari pemasukan</span>
+    </div>
+    <div class="bar green" style="margin-top:9px"><i id="kPersenBar" style="width:0%"></i></div>
+  </div>
+
+  <div class="stat st-green fade-up d2">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Pemasukan <span id="kBulanLabel"></span></div>
+        <div class="stat-val money-in" id="kMasuk">—</div>
+      </div>
+      <div class="stat-ico">📈</div>
+    </div>
+    <div class="stat-foot">Gaji &amp; pemasukan lain bulan ini</div>
+  </div>
+
+  <div class="stat st-red fade-up d3">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Pengeluaran Bulan Ini</div>
+        <div class="stat-val money-out" id="kKeluar">—</div>
+      </div>
+      <div class="stat-ico">💸</div>
+    </div>
+    <div class="stat-foot">
+      <span class="trend flat" id="kTrend">Belum ada pembanding</span>
+    </div>
+  </div>
+
+  <div class="stat st-gold fade-up d4">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Saldo Tersedia</div>
+        <div class="stat-val sm" id="kSaldo">—</div>
+      </div>
+      <div class="stat-ico">🏦</div>
+    </div>
+    <div class="stat-foot">Saldo awal + seluruh pemasukan − pengeluaran</div>
+  </div>
+</section>
+
+<!-- ================= GRAFIK HARIAN + INFO KECIL ================= -->
+<section class="grid g-2-1 fade-up d5">
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <h2>Arus Keuangan Harian</h2>
+        <p>Perbandingan pemasukan &amp; pengeluaran setiap hari</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chart-box lg"><canvas id="chartHarian"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><h2>Ringkasan Cepat</h2><p>Angka-angka kunci bulan ini</p></div></div>
+    <div class="card-body">
+      <div class="grid" style="gap:12px">
+        <div class="mitem">
+          <div class="cat-ico" style="--c-bg:rgba(244,63,94,.16);--c-line:rgba(244,63,94,.4)">🛒</div>
+          <div class="mitem-body">
+            <b>Belanja Hari Ini</b>
+            <small>Pengeluaran tercatat hari ini</small>
+          </div>
+          <div class="mitem-amt"><b id="kHariIni">—</b></div>
+        </div>
+        <div class="mitem">
+          <div class="cat-ico" style="--c-bg:rgba(99,102,241,.16);--c-line:rgba(99,102,241,.4)">📊</div>
+          <div class="mitem-body">
+            <b>Rata-rata / Hari</b>
+            <small>Pengeluaran rata-rata harian</small>
+          </div>
+          <div class="mitem-amt"><b id="kRata">—</b></div>
+        </div>
+        <div class="mitem">
+          <div class="cat-ico" style="--c-bg:rgba(34,211,238,.16);--c-line:rgba(34,211,238,.4)">🗓️</div>
+          <div class="mitem-body">
+            <b>Aktivitas</b>
+            <small>Jumlah transaksi tercatat</small>
+          </div>
+          <div class="mitem-amt"><b id="kJumlahTrx">—</b></div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="card-head" style="padding:0;border:0;margin-bottom:14px">
+        <div><h2 style="font-size:15px">Transaksi Terbaru</h2></div>
+      </div>
+      <div class="mlist" id="trxTerbaru"></div>
+
+      <a class="btn btn-ghost btn-block btn-sm" style="margin-top:16px" href="/transaksi">
+        Lihat Semua Transaksi
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M13 6l6 6-6 6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DONAT KATEGORI + REKAP ================= -->
+<section class="grid g-1-2 fade-up d6">
+  <div class="card">
+    <div class="card-head">
+      <div><h2>Komposisi Pengeluaran</h2><p>Per kategori bulan ini</p></div>
+    </div>
+    <div class="card-body">
+      <div class="chart-box"><canvas id="chartDonat"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><h2>Rincian per Kategori</h2><p>Urut dari pengeluaran terbesar</p></div>
+    </div>
+    <div class="card-body">
+      <div class="rek-list" id="rekKategori"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TREN 6 BULAN ================= -->
+<section class="card fade-up d6">
+  <div class="card-head">
+    <div><h2>Tren 6 Bulan Terakhir</h2><p>Perbandingan pemasukan &amp; pengeluaran antar bulan</p></div>
+  </div>
+  <div class="card-body">
+    <div class="chart-box"><canvas id="chartTren"></canvas></div>
+  </div>
+</section>

@@ -1,0 +1,222 @@
+<!-- ================= FILTER BULAN ================= -->
+<section class="card fade-up">
+  <div class="card-body tight">
+    <div class="filters">
+      <label class="field" style="min-width:210px">
+        <span>Pilih Bulan</span>
+        <select class="select" id="rekPeriode"></select>
+      </label>
+
+      <div class="flex gap-8" style="margin-top:22px">
+        <button class="btn btn-ghost btn-sm" id="rekPrev" title="Bulan sebelumnya">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+          <span class="desk-only" id="rekPrevLabel">—</span>
+        </button>
+        <button class="btn btn-ghost btn-sm" id="rekNext" title="Bulan berikutnya">
+          <span class="desk-only" id="rekNextLabel">—</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+
+      <div style="flex:1"></div>
+
+      <a class="btn btn-gold no-print" href="/cetak" data-periode-link>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+          <path d="M6 14h12v8H6z"/>
+        </svg>
+        Cetak / PDF
+      </a>
+      <button class="btn btn-ghost no-print" id="rekExport">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/>
+        </svg>
+        <span class="desk-only">Export CSV</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JUDUL REKAP ================= -->
+<section class="print-head">
+  <h2>Laporan Keuangan Bulanan</h2>
+  <p><span id="rekNama">—</span> &middot; Periode <span id="rekPeriodeLabel">—</span></p>
+</section>
+
+<!-- ================= KARTU RINGKAS ================= -->
+<section class="grid g-4 fade-up d1">
+  <div class="stat st-green">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Total Pemasukan</div>
+        <div class="stat-val money-in" id="rekMasuk">—</div>
+      </div>
+      <div class="stat-ico">📈</div>
+    </div>
+    <div class="stat-foot">Gaji dan pemasukan lain</div>
+  </div>
+  <div class="stat st-red">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Total Pengeluaran</div>
+        <div class="stat-val money-out" id="rekKeluar">—</div>
+      </div>
+      <div class="stat-ico">💸</div>
+    </div>
+    <div class="stat-foot"><span id="rekJumlah">—</span> transaksi</div>
+  </div>
+  <div class="stat st-blue">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Sisa Bulan Ini</div>
+        <div class="stat-val" id="rekSisa">—</div>
+      </div>
+      <div class="stat-ico">💰</div>
+    </div>
+    <div class="stat-foot">Pemasukan − Pengeluaran</div>
+  </div>
+  <div class="stat st-gold">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Rata-rata / Hari</div>
+        <div class="stat-val sm" id="rekRata">—</div>
+      </div>
+      <div class="stat-ico">📊</div>
+    </div>
+    <div class="stat-foot">Dari <span id="rekHariAktif">—</span> hari aktif</div>
+  </div>
+</section>
+
+<!-- ================= BANDINGAN BULAN LALU ================= -->
+<section class="card fade-up d2">
+  <div class="card-body tight">
+    <div class="flex items-center gap-16 flex-wrap">
+      <div class="grow" style="min-width:230px">
+        <div class="tiny mute2" style="text-transform:uppercase;letter-spacing:.7px;font-weight:700" id="rekBandingLabel">
+          Perbandingan
+        </div>
+        <div class="flex items-center gap-12 flex-wrap" style="margin-top:9px">
+          <div>
+            <div class="cat-sub">Bulan ini</div>
+            <b class="money-out" style="font-size:17px" id="rekBandingIni">—</b>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;color:var(--text-mute)">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+          <div>
+            <div class="cat-sub">Bulan lalu</div>
+            <b style="font-size:17px" id="rekBandingLalu">—</b>
+          </div>
+        </div>
+      </div>
+      <div id="rekBandingKanan"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REKAP PENGELUARAN ================= -->
+<section class="card fade-up d3">
+  <div class="card-head">
+    <div>
+      <h2>Rekap Pengeluaran per Kategori</h2>
+      <p id="rekKeluarSub">—</p>
+    </div>
+  </div>
+  <div class="card-body flush">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:34px">#</th>
+            <th>Kategori</th>
+            <th class="t-center" style="width:100px">Transaksi</th>
+            <th class="t-right" style="width:110px">Persentase</th>
+            <th class="t-right" style="width:170px">Total</th>
+          </tr>
+        </thead>
+        <tbody id="rekTabelKeluar"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="t-right">TOTAL PENGELUARAN</td>
+            <td class="t-right t-num" id="rekTotalKeluar">—</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REKAP PEMASUKAN ================= -->
+<section class="card fade-up d4">
+  <div class="card-head">
+    <div><h2>Rekap Pemasukan</h2><p>Gaji dan pemasukan lainnya bulan ini</p></div>
+  </div>
+  <div class="card-body flush">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Kategori</th>
+            <th class="t-center" style="width:100px">Transaksi</th>
+            <th class="t-right" style="width:110px">Persentase</th>
+            <th class="t-right" style="width:170px">Total</th>
+          </tr>
+        </thead>
+        <tbody id="rekTabelMasuk"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" class="t-right">TOTAL PEMASUKAN</td>
+            <td class="t-right t-num" id="rekTotalMasuk">—</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RINGKASAN AKHIR ================= -->
+<section class="grid g-3 fade-up d5">
+  <div class="card">
+    <div class="card-body tight">
+      <div class="cat-sub">Hari Paling Boros</div>
+      <div class="flex items-center gap-12" style="margin-top:8px">
+        <div class="stat-ico" style="width:46px;height:46px;font-size:22px">🔥</div>
+        <div>
+          <b style="font-size:17px" id="rekHariBorosTgl">—</b>
+          <div class="money-out strong" id="rekHariBorosNominal">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body tight">
+      <div class="cat-sub">Kategori Terbesar</div>
+      <div class="flex items-center gap-12" style="margin-top:8px">
+        <div class="cat-ico" id="rekTopIkon" style="width:46px;height:46px;font-size:22px;
+             --c-bg:rgba(255,255,255,.06);--c-line:var(--line)">—</div>
+        <div>
+          <b style="font-size:17px" id="rekTopNama">—</b>
+          <div class="money-out strong" id="rekTopNominal">Rp 0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body tight">
+      <div class="cat-sub">Rasio Pengeluaran</div>
+      <div class="flex items-center gap-12" style="margin-top:8px">
+        <div class="stat-ico" style="width:46px;height:46px;font-size:22px;
+             --c-bg:rgba(99,102,241,.16);--c-line:rgba(99,102,241,.42)">⚖️</div>
+        <div>
+          <b style="font-size:17px" id="rekPersen">—%</b>
+          <div class="tiny mute2">dari total pemasukan</div>
+        </div>
+      </div>
+      <div class="bar green" id="rekPersenBarWrap" style="margin-top:11px"><i id="rekPersenBar" style="width:0%"></i></div>
+    </div>
+  </div>
+</section>

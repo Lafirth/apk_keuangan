@@ -1,0 +1,87 @@
+[build]
+  publish = "public"
+  # Fungsi butuh @netlify/blobs & bcryptjs, jadi dependency tetap diinstal
+  # walau tidak ada proses build frontend sama sekali.
+  command = "npm install --omit=dev --no-audit --no-fund"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+[functions]
+  directory = "netlify/functions"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "same-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    # script-src sengaja ketat ('self' saja, tanpa unsafe-inline/eval) karena
+    # seluruh skrip dimuat sebagai file terpisah - ini yang menahan XSS.
+    # style-src masih butuh 'unsafe-inline' karena halaman memakai ~100
+    # atribut style="" untuk layout dinamis, dan Chart.js juga menyuntik
+    # style ke canvas.
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/vendor/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-store"
+
+# Pretty URLs -> the single-page shell. The shell reads ?page= itself.
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/index.html?page=dashboard"
+  status = 200
+
+[[redirects]]
+  from = "/transaksi"
+  to = "/index.html?page=transaksi"
+  status = 200
+
+[[redirects]]
+  from = "/kategori"
+  to = "/index.html?page=kategori"
+  status = 200
+
+[[redirects]]
+  from = "/rekap"
+  to = "/index.html?page=rekap"
+  status = 200
+
+[[redirects]]
+  from = "/cetak"
+  to = "/print.html"
+  status = 200
+
+[[redirects]]
+  from = "/login"
+  to = "/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/logout"
+  to = "/logout.html"
+  status = 200
+
+# 404 -> shell, supaya URL yang diketik manual tidak error.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404

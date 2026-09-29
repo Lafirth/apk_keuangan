@@ -1,0 +1,140 @@
+<!-- ================= FILTER ================= -->
+<section class="card fade-up">
+  <div class="card-body tight">
+    <div class="filters">
+      <label class="field" style="min-width:190px">
+        <span>Bulan</span>
+        <select class="select" id="fPeriode"></select>
+      </label>
+
+      <label class="field" style="min-width:150px">
+        <span>Jenis</span>
+        <select class="select" id="fJenis">
+          <option value="">Semua</option>
+          <option value="keluar">Pengeluaran</option>
+          <option value="masuk">Pemasukan</option>
+        </select>
+      </label>
+
+      <label class="field" style="min-width:180px">
+        <span>Kategori</span>
+        <select class="select" id="fKategori"></select>
+      </label>
+
+      <label class="field grow" style="min-width:220px">
+        <span>Cari</span>
+        <div class="input-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+          </svg>
+          <input type="text" class="input" id="fCari" placeholder="Cari keterangan atau kategori…">
+        </div>
+      </label>
+
+      <button class="btn btn-ghost" id="fReset" style="margin-top:22px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 109-9 9 9 0 00-6.4 2.7L3 8"/><path d="M3 3v5h5"/>
+        </svg>
+        <span class="desk-only">Reset</span>
+      </button>
+
+      <button class="btn btn-primary" data-modal="modalTransaksi" style="margin-top:22px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        <span class="desk-only">Tambah Transaksi</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RINGKASAN FILTER ================= -->
+<section class="grid g-4 fade-up d1">
+  <div class="stat st-blue">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Jumlah Transaksi</div>
+        <div class="stat-val sm" id="sumJumlah">—</div>
+      </div>
+      <div class="stat-ico">🧾</div>
+    </div>
+    <div class="stat-foot">Sesuai filter aktif</div>
+  </div>
+  <div class="stat st-green">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Total Pemasukan</div>
+        <div class="stat-val sm money-in" id="sumMasuk">—</div>
+      </div>
+      <div class="stat-ico">📈</div>
+    </div>
+    <div class="stat-foot">Gaji &amp; pemasukan lain</div>
+  </div>
+  <div class="stat st-red">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Total Pengeluaran</div>
+        <div class="stat-val sm money-out" id="sumKeluar">—</div>
+      </div>
+      <div class="stat-ico">💸</div>
+    </div>
+    <div class="stat-foot">Semua pengeluaran</div>
+  </div>
+  <div class="stat st-gold">
+    <div class="stat-top">
+      <div>
+        <div class="stat-label">Selisih</div>
+        <div class="stat-val sm money-in" id="sumSelisih">—</div>
+      </div>
+      <div class="stat-ico">⚖️</div>
+    </div>
+    <div class="stat-foot">Pemasukan − Pengeluaran</div>
+  </div>
+</section>
+
+<!-- ================= TABEL TRANSAKSI ================= -->
+<section class="card fade-up d2">
+  <div class="card-head">
+    <div>
+      <h2>Daftar Transaksi</h2>
+      <p><span id="trxPeriodeLabel">—</span> &middot; klik ikon pensil untuk mengubah, tong sampah untuk menghapus</p>
+    </div>
+    <div class="spacer"></div>
+    <a class="btn btn-ghost btn-sm" href="/cetak" data-periode-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+        <path d="M6 14h12v8H6z"/>
+      </svg>
+      <span class="desk-only">Cetak</span>
+    </a>
+  </div>
+
+  <div class="table-wrap desk-only" id="trxWrap" hidden>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:130px">Tanggal</th>
+          <th>Kategori &amp; Keterangan</th>
+          <th style="width:100px">Jenis</th>
+          <th class="t-right" style="width:170px">Nominal</th>
+          <th class="t-right" style="width:96px">Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="trxBody"></tbody>
+    </table>
+  </div>
+
+  <div class="card-body only-mobile" id="trxMobile"></div>
+
+  <div id="trxEmpty" class="empty" hidden>
+    <div class="empty-ico">🗒️</div>
+    <h3>Belum ada transaksi</h3>
+    <p>Belum ada transaksi yang cocok dengan filter saat ini. Coba ubah filter, atau catat transaksi baru.</p>
+    <button class="btn btn-primary" data-modal="modalTransaksi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      Catat Transaksi Pertama
+    </button>
+  </div>
+</section>

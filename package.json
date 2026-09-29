@@ -1,0 +1,23 @@
+{
+  "name": "apk-keuangan",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "APK Keuangan - pencatatan keuangan harian, deployed di Netlify (Blobs + Functions)",
+  "scripts": {
+    "dev": "netlify dev",
+    "test": "node scripts/test.mjs",
+    "check-sync": "node scripts/check-sync.mjs",
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.0.0",
+    "bcryptjs": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "netlify-cli": "^27.10.2"
+  }
+}

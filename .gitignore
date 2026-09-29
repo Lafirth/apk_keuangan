@@ -1,0 +1,14 @@
+node_modules/
+.netlify/
+dist/
+
+# Rahasia
+.env
+.env.*
+!.env.example
+
+# Log & OS
+*.log
+npm-debug.log*
+Thumbs.db
+.DS_Store
